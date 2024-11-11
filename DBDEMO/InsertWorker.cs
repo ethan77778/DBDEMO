@@ -57,53 +57,47 @@ namespace DBDEMO
         /// ManagerId不為null
         /// </summary>
         /// <returns></returns>
-        public static List<Worker> ManagerIdNotNull()
+        public static DataTable ManagerIdNotNull()
         {
             string connectionString = "Data Source=CompanyEmployees.db;Version=3;";
             using (var connection = new SQLiteConnection(connectionString))
             {
-                try
-                {
-                    connection.Open();
-                    string querySql = "SELECT * FROM Employee WHERE  ManagerId IS NOT NULL";
 
-                    //Query是用來查詢的方法,querySql為要執行的sql語法，並將每行資料映射到 Worker 類型的物件
-                    return connection.Query<Worker>(querySql).ToList();
-                }
-                catch (Exception ex) 
+                connection.Open();
+                string querySql = "SELECT * FROM Employee WHERE  ManagerId IS NOT NULL";
+                DataTable table = new DataTable();
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(querySql, connection))
                 {
-                    Console.WriteLine($"查詢過程發生錯誤: {ex.Message}");
-                    return new List<Worker>();
-                }            
+                    adapter.Fill(table);
+                }
+                //Query是用來查詢的方法,querySql為要執行的sql語法，並將每行資料映射到 Worker 類型的物件
+                return table;
             }
         }
         /// <summary>
         /// 薪資高於經理
         /// </summary>
         /// <returns></returns>
-        public static List<string> SalaryHighThanManager()
+        public static DataTable SalaryHighThanManager()
         {
             string connectionString = "Data Source=CompanyEmployees.db;Version=3;";
-            using (var connection=new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
-                try
-                {
-                    connection.Open();
-                    string querySql = @"SELECT E.Name AS Employee 
+                connection.Open();
+                string querySql = @"SELECT E.Name AS Employee 
                                                       FROM Employee E 
                                                       JOIN Employee e2 
                                                       ON E.ManagerId = e2.Id
                                                       WHERE E.ManagerId IS NOT NULL 
                                                       AND E.Salary > e2.Salary";
-                    return connection.Query<string>(querySql).ToList();
-                }
-                catch(Exception ex)
+                DataTable table = new DataTable();
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(querySql, connection))
                 {
-                    Console.WriteLine($"查詢過程發生錯誤: {ex.Message}");
-                    return new List<string>();
+                    adapter.Fill(table);
                 }
+                return table;
             }
         }
-      
-    }
+        public static
+     } 
 }
