@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using FastReport;
+using System.Data.SQLite;
 using System.Text.Unicode;
 namespace DBDEMO
 {
@@ -32,11 +33,12 @@ namespace DBDEMO
                 {
                     //要用來執行 SQL 語句，這些語句不返回資料，而是用來進行資料庫的結構變更、資料更新、刪除操作或執行非查詢的 SQL 語句。
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Table 'Customers' has been created.");
+                    Console.WriteLine("Table 'Employee' has been created.");
                 }
                 InsertWorker worker = new InsertWorker();
                 worker.InserData();
                 var workersWithManager = InsertWorker.ManagerIdNotNull();
+              
 
                 if (workersWithManager.Count > 0)
                 {

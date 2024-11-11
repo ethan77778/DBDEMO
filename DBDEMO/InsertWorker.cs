@@ -5,6 +5,10 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FastReport;
+using System.Data;
+using FastReport.Export.PdfSimple;
+
 
 namespace DBDEMO
 {
@@ -100,5 +104,6 @@ namespace DBDEMO
                 }
             }
         }
+      
     }
 }
