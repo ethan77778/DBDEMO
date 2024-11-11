@@ -38,30 +38,31 @@ namespace DBDEMO
                 InsertWorker worker = new InsertWorker();
                 worker.InserData();
                 var workersWithManager = InsertWorker.ManagerIdNotNull();
-              
 
-                if (workersWithManager.Count > 0)
-                {
-                    Console.WriteLine("Manager不為null的員工資料:");
-                    foreach (var w in workersWithManager)
-                    {
-                        Console.WriteLine($"員工編號: {w.Id} ,員工姓名: {w.Name} ,薪資:{w.Salary} ,經理編號:{w.ManagerId}");
-                    }
-                }
-                else 
-                {
-                    Console.WriteLine("沒有找到 ManagerId 不為 null 的員工。");
-                }
-                var searchResult = InsertWorker.SalaryHighThanManager();
-                //代表有資料
-                if (searchResult.Count > 0) 
-                {
-                    Console.WriteLine("⾮管理職且薪資⾼於該主管⼈員:");
-                    foreach(var result in searchResult)
-                    {
-                        Console.WriteLine($"Employee:{result}");
-                    }
-                }
+
+                //if (workersWithManager.Count > 0)
+                //{
+                //    Console.WriteLine("Manager不為null的員工資料:");
+                //    foreach (var w in workersWithManager)
+                //    {
+                //        Console.WriteLine($"員工編號: {w.Id} ,員工姓名: {w.Name} ,薪資:{w.Salary} ,經理編號:{w.ManagerId}");
+                //    }
+                //}
+                //else 
+                //{
+                //    Console.WriteLine("沒有找到 ManagerId 不為 null 的員工。");
+                //}
+                //var searchResult = InsertWorker.SalaryHighThanManager();
+                ////代表有資料
+                //if (searchResult.Count > 0) 
+                //{
+                //    Console.WriteLine("⾮管理職且薪資⾼於該主管⼈員:");
+                //    foreach(var result in searchResult)
+                //    {
+                //        Console.WriteLine($"Employee:{result}");
+                //    }
+                //}
+                worker.ExportRreport();
             };
         }
     }

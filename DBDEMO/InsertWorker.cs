@@ -98,6 +98,27 @@ namespace DBDEMO
                 return table;
             }
         }
-        public static
-     } 
+        public void ExportRreport()
+        {
+            Report report = new Report();
+            string reportFilePath = @"C:\Users\user\Desktop\DBDEMO\DBDEMO\Report.frx";
+            report.Load(reportFilePath);
+
+            DataTable managerIdDataNotNull = ManagerIdNotNull();
+            DataTable salaryHighEmployee = SalaryHighThanManager();
+
+            report.RegisterData(managerIdDataNotNull, "Employee");
+            report.RegisterData(salaryHighEmployee, "Employee");
+
+            report.Prepare();
+
+
+            string outPutPdfPath = @"C:\Users\user\Desktop\DBDEMO\HighSalaryEmployeeReport.pdf";
+            PDFSimpleExport pdfExport = new PDFSimpleExport();
+            report.Export(pdfExport, outPutPdfPath);
+            Console.WriteLine($"報表已匯出到: {outPutPdfPath}");
+
+        }
+
+    }
 }
