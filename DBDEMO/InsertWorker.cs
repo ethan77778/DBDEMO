@@ -19,6 +19,7 @@ namespace DBDEMO
         /// </summary>
         public void InserData()
         {
+            
             var worKer = new[]
            {
                 new Worker{Id=1,Name="Joe",Salary=70000,ManagerId=3},
@@ -58,7 +59,8 @@ namespace DBDEMO
         /// </summary>
         /// <returns></returns>
         public static DataTable ManagerIdNotNull()
-        {
+        { 
+            //設定連線字串
             string connectionString = "Data Source=CompanyEmployees.db;Version=3;";
             using (var connection = new SQLiteConnection(connectionString))
             {
@@ -84,7 +86,7 @@ namespace DBDEMO
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string querySql = @"SELECT E.Name AS Employee 
+                string querySql = @"SELECT E.Name 
                                                       FROM Employee E 
                                                       JOIN Employee e2 
                                                       ON E.ManagerId = e2.Id
@@ -98,18 +100,24 @@ namespace DBDEMO
                 return table;
             }
         }
+        /// <summary>
+        /// 匯出報表
+        /// </summary>
         public void ExportRreport()
         {
             Report report = new Report();
             string reportFilePath = @"C:\Users\user\Desktop\DBDEMO\DBDEMO\Report.frx";
-            report.Load(reportFilePath);
+           report.Load(reportFilePath);
 
             DataTable managerIdDataNotNull = ManagerIdNotNull();
             DataTable salaryHighEmployee = SalaryHighThanManager();
-
+            managerIdDataNotNull.TableName = "Employee";
+            salaryHighEmployee.TableName = "EmployeeHighSalary";
             report.RegisterData(managerIdDataNotNull, "Employee");
-            report.RegisterData(salaryHighEmployee, "Employee");
+            report.RegisterData(salaryHighEmployee, "EmployeeHighSalary");
 
+            ((DataBand)report.Report.FindObject("Data1")).DataSource= report.GetDataSource("Employee");
+            ((DataBand)report.Report.FindObject("Data2")).DataSource = report.GetDataSource("EmployeeHighSalary");
             report.Prepare();
 
 
@@ -117,7 +125,6 @@ namespace DBDEMO
             PDFSimpleExport pdfExport = new PDFSimpleExport();
             report.Export(pdfExport, outPutPdfPath);
             Console.WriteLine($"報表已匯出到: {outPutPdfPath}");
-
         }
 
     }
