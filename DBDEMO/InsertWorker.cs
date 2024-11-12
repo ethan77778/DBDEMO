@@ -110,9 +110,9 @@ namespace DBDEMO
         {
             //Report 類通常來自於報表生成工具（如 FastReport）。這個物件代表了報表的整體結構和邏輯。
             Report report = new Report();
-            
+
             //reportFilePath為frx檔的位置
-            string reportFilePath = @"C:\Users\user\Desktop\DBDEMO\DBDEMO\Report.frx";
+            string reportFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report.frx"); ;
           
             //加載指定的報表模板 (.frx 文件) 到 report 物件中。這樣報表就能夠根據模板來生成內容。
             report.Load(reportFilePath);
@@ -140,7 +140,12 @@ namespace DBDEMO
             report.Prepare();
 
             //outPutPdfPath指定了匯出報表的目標路徑和檔案名稱
-            string outPutPdfPath = @"C:\Users\user\Desktop\DBDEMO\HighSalaryEmployeeReport.pdf";
+            //Path.Combine()用來將多個字串合併成一個有效的檔案路徑
+            //AppDomain(應用程式域)代表了程式的執行域（也就是應用程式的執行環境）。它提供了關於當前應用程式的資訊，例如執行程式的位置、設置等。
+            //CurrentDomain(當前應用程式域)指的是應用程式當前運行時所處的執行環境
+            //BaseDirectory(BaseDirectory)該應用程式正在執行的目錄位置; 而返回的值
+            //ex:如果在window中且應用程式在 C:\MyApp\ 資料夾裡返回值將是 C:\MyApp\
+            string outPutPdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report.pdf"); ;
 
             //PDFSimpleExport 物件，用來將報表匯出為 PDF 格式
             PDFSimpleExport pdfExport = new PDFSimpleExport();
