@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DBDEMO
 {
+    /// <summary>
+    /// 員工
+    /// </summary>
     public class Worker
     {
         /// <summary>
