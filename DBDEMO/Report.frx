@@ -2,7 +2,8 @@
 <Report ScriptLanguage="CSharp" ReportInfo.Created="11/11/2024 13:06:26" ReportInfo.Modified="11/11/2024 14:38:59" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
     <!--<SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqIltkgxALMArhJ2W63qXqy3kbgrVF3RBuoGH6WHajT7Z4t92jh33WmfROWZEyHFJd3a5EGJo0dNkzLNVb5cTbEArPUKqn0YZDlHUY59hK+62hLgXZj76NpsQQJBb4Bkxc">-->
-      <TableDataSource Name="Employee" DataType="System.Int32" Enabled="true" ReferenceName="Employee"/>
+      <!--TableDataSource代表資料來源-->
+	  <TableDataSource Name="Employee" DataType="System.Int32" Enabled="true" ReferenceName="Employee"/>
       <TableDataSource Name="EmployeeHighSalary" DataType="System.Int32" Enabled="true" ReferenceName="EmployeeHighSalary"/>
         <!--<Column Name="Id" DataType="System.Int64"/>
         <Column Name="Name" DataType="System.String"/>
@@ -12,7 +13,9 @@
     <!--</SQLiteDataConnection>-->
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="宋体, 60pt">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="85.05"/>
+	  <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="85.05">
+		  <TextObject Name="Text10" Left="245.7" Top="9.45" Width="170.1" Height="75.6" Text="第七大題(第二小題)" HorzAlign="Center" VertAlign="Center" Font="宋体, 22pt"/>
+	  </ReportTitleBand>
     <PageHeaderBand Name="PageHeader1" Top="89.05" Width="718.2" Height="170.1">
       <TextObject Name="Text2" Left="9.45" Top="28.35" Width="113.4" Height="28.35" Text="Id" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>
       <TextObject Name="Text4" Left="387.45" Width="94.5" Height="94.5" Text="Salary" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>
@@ -25,12 +28,19 @@
       <TextObject Name="Text8" Left="567" Top="28.35" Width="132.3" Height="85.05" Text="[Employee.ManagerId]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>
       <TextObject Name="Text1" Top="9.45" Width="160.65" Height="94.5" Text="[Employee.Id]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>
     </DataBand>
-	  <DataBand Name="Data2" Top="263.15" Width="718.2" Height="141.75" >
-		  <!--<TextObject Name="Text3" Left="378" Top="28.35" Width="160.65" Height="85.05" Text="[EmployeeHighSalary.Salary]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>-->
-		  <TextObject Name="Text7" Left="189" Top="28.35" Width="170.1" Height="85.05" Text="[EmployeeHighSalary.Name]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>
-		  <!--<TextObject Name="Text8" Left="567" Top="28.35" Width="132.3" Height="85.05" Text="[EmployeeHighSalary.ManagerId]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>-->
-		  <!--<TextObject Name="Text1" Top="9.45" Width="160.65" Height="94.5" Text="[EmployeeHighSalary.Id]" HorzAlign="Center" VertAlign="Center" Font="新細明體-ExtB, 18pt"/>-->
-	  </DataBand>
     <PageFooterBand Name="PageFooter1" Top="408.9" Width="718.2" Height="151.2"/>
   </ReportPage>
+
+	<ReportPage Name="Page2" Watermark.Font="宋体, 60pt">
+		<ReportTitleBand Name="ReportTitle2" Width="718.2" Height="94.5">
+			<TextObject Name="Text10" Left="245.7" Top="9.45" Width="170.1" Height="75.6" Text="第七大題(第二小題)" HorzAlign="Center" VertAlign="Center" Font="宋体, 22pt"/>
+		</ReportTitleBand>
+		<PageHeaderBand Name="PageHeader2" Top="98.5" Width="718.2" Height="28.35">
+			<TextObject Name="Text12" Left="292.95" Top="9.45" Width="94.5" Height="18.9" Text="Name" HorzAlign="Center" VertAlign="Center" Font="宋体, 22pt"/>
+		</PageHeaderBand>
+		<DataBand Name="Data2" Top="130.85" Width="718.2" Height="94.5" >
+			<TextObject Name="Text11" Left="264.6" Top="18.9" Width="141.75" Height="66.15" Text="[EmployeeHighSalary.Name]" HorzAlign="Center" VertAlign="Center" Font="宋体, 22pt"/>
+		</DataBand>
+		<PageFooterBand Name="PageFooter2" Top="229.35" Width="718.2" Height="18.9"/>
+	</ReportPage>
 </Report>

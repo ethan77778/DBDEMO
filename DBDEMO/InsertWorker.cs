@@ -68,8 +68,10 @@ namespace DBDEMO
                 connection.Open();
                 string querySql = "SELECT * FROM Employee WHERE  ManagerId IS NOT NULL";
                 DataTable table = new DataTable();
+                //SQLiteDataAdapter是一個工具，用來將SQL查詢的填充到DataTable中
                 using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(querySql, connection))
                 {
+                    //adapter.Fill會執行前面定義的 SQL 查詢，並將查詢結果填入 table 物件
                     adapter.Fill(table);
                 }
                 //Query是用來查詢的方法,querySql為要執行的sql語法，並將每行資料映射到 Worker 類型的物件
@@ -86,6 +88,7 @@ namespace DBDEMO
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
+                //********注意!!!當只有select某個欄位或某些欄位，而要產出報表前要去frx檔留存只需要的欄位，其他不需要的可以先刪除
                 string querySql = @"SELECT E.Name 
                                                       FROM Employee E 
                                                       JOIN Employee e2 
@@ -105,24 +108,44 @@ namespace DBDEMO
         /// </summary>
         public void ExportRreport()
         {
+            //Report 類通常來自於報表生成工具（如 FastReport）。這個物件代表了報表的整體結構和邏輯。
             Report report = new Report();
+            
+            //reportFilePath為frx檔的位置
             string reportFilePath = @"C:\Users\user\Desktop\DBDEMO\DBDEMO\Report.frx";
-           report.Load(reportFilePath);
+          
+            //加載指定的報表模板 (.frx 文件) 到 report 物件中。這樣報表就能夠根據模板來生成內容。
+            report.Load(reportFilePath);
 
+            //ManagerIdNotNull()、SalaryHighThanManager()把這些方法所得到的datatable結果存到managerIdDataNotNull、salaryHighEmployee 變數中
             DataTable managerIdDataNotNull = ManagerIdNotNull();
             DataTable salaryHighEmployee = SalaryHighThanManager();
+
+            //設定資料表名稱
             managerIdDataNotNull.TableName = "Employee";
             salaryHighEmployee.TableName = "EmployeeHighSalary";
+
+            //註冊資料RegisterData方法作用是將資料註冊到報表中，讓報表引擎能夠使用這些資料來生成報表
+            //其中參數部分()要放要註冊的資料(datatable)與資料名稱(可自行設定但若上面有先設定資料表名稱，需一致性)
             report.RegisterData(managerIdDataNotNull, "Employee");
             report.RegisterData(salaryHighEmployee, "EmployeeHighSalary");
 
+            //此report為先前設的變數代表整個報表，FindObject為Report 物件的一個方法，會搜尋報表模板中名稱為Data1的物件
+            //如果有搜尋到會返回DataBand物件，= report.GetDataSource("Employee");這行會得到資料源為Employee的資料(Datatable)
+            //一整句的意思就是將DataBand與資料源Employee的資料(Datatable)綁定在一起
             ((DataBand)report.Report.FindObject("Data1")).DataSource= report.GetDataSource("Employee");
             ((DataBand)report.Report.FindObject("Data2")).DataSource = report.GetDataSource("EmployeeHighSalary");
+
+            //是生成報表內容的必要步驟，它會確保所有資料都被正確處理並顯示在報表中。只有在這一步完成後，報表才可以進行匯出或顯示。
             report.Prepare();
 
-
+            //outPutPdfPath指定了匯出報表的目標路徑和檔案名稱
             string outPutPdfPath = @"C:\Users\user\Desktop\DBDEMO\HighSalaryEmployeeReport.pdf";
+
+            //PDFSimpleExport 物件，用來將報表匯出為 PDF 格式
             PDFSimpleExport pdfExport = new PDFSimpleExport();
+
+            //Export方法是將報表內容轉換並匯出成指定格式，其中第一個參數是指定了要將報表匯出成 PDF 格式，第二個為指定匯出 PDF 檔案儲存的路徑
             report.Export(pdfExport, outPutPdfPath);
             Console.WriteLine($"報表已匯出到: {outPutPdfPath}");
         }
