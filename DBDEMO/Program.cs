@@ -19,6 +19,7 @@ namespace DBDEMO
             {
                 // connection.Open();用來開啟與資料庫的連線
                 connection.Open();
+                //IF NOT EXISTS 為如果條件不存在就執行
                 string creatTable = @"CREATE TABLE IF NOT EXISTS Employee ( 
                                                          Id INTEGER PRIMARY KEY ,
                                                          Name TEXT NOT NULL,

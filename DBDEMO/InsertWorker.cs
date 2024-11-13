@@ -12,6 +12,9 @@ using FastReport.Export.PdfSimple;
 
 namespace DBDEMO
 {
+    /// <summary>
+    /// 新增資料與查詢工作者
+    /// </summary>
     public class InsertWorker
     {
         /// <summary>
